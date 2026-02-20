@@ -10,8 +10,8 @@ services:
     env_file:
       - .env
     environment:
-      - TUYA_CLIENT_ID=${TUYA_CLIENT_ID}
-      - TUYA_CLIENT_SECRET=${TUYA_CLIENT_SECRET}
+      - TUYA_CLIENT_ID=${TUYA_CLIENT_ID:?TUYA_CLIENT_ID is required in Portainer}
+      - TUYA_CLIENT_SECRET=${TUYA_CLIENT_SECRET:?TUYA_CLIENT_SECRET is required in Portainer}
     networks:
       - lavanderia-unique-network
     healthcheck:
