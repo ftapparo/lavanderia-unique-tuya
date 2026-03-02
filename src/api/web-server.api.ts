@@ -3,8 +3,12 @@ import cors from 'cors';
 import swaggerUi from 'swagger-ui-express';
 import swaggerDocument from '../swagger.json';
 import healthRoutes from '../routes/health.routes';
+import devicesRoutes from '../routes/devices.routes';
+import { requestContextMiddleware } from '../middleware/request-context';
+import { responseHandler } from '../middleware/response-handler';
 import type { Express } from 'express';
 import type { Server } from 'http';
+import { env } from '../config/env';
 
 export const swaggerUiOptions = {
     swaggerOptions: {
@@ -29,8 +33,11 @@ export function createApp(): Express {
 
     app.options(/.*/, cors());
     app.use(express.json());
+    app.use(requestContextMiddleware);
+    app.use(responseHandler);
 
     app.use('/v1/api', healthRoutes);
+    app.use('/v1/api', devicesRoutes);
 
     app.use('/v1/swagger', swaggerUi.serve, swaggerUi.setup(swaggerDocument, swaggerUiOptions));
 
@@ -40,7 +47,12 @@ export function createApp(): Express {
     });
 
     app.use((_req, res) => {
-        res.status(404).send();
+        res.fail('Rota nao encontrada.', 404);
+    });
+
+    app.use((error: unknown, _req: express.Request, res: express.Response, _next: express.NextFunction) => {
+        const message = error instanceof Error ? error.message : 'Erro interno do servidor.';
+        res.fail('Erro interno do servidor.', 500, message);
     });
 
     return app;
@@ -48,11 +60,16 @@ export function createApp(): Express {
 
 export async function StartWebServer(appInstance: Express = createApp()): Promise<Server> {
     const app = appInstance;
-    const port = process.env.PORT || 3000;
+    const port = process.env.PORT || env.port;
 
-    const server = app.listen(port, () => {
-        console.log(`[Api] WebServer rodando na porta ${port}`);
+    return await new Promise<Server>((resolve, reject) => {
+        const server = app.listen(port, () => {
+            console.log(`[Api] WebServer rodando na porta ${port}`);
+            resolve(server);
+        });
+
+        server.once('error', (error) => {
+            reject(error);
+        });
     });
-
-    return server;
 }
