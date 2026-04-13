@@ -18,28 +18,20 @@
   "paths": {
     "/v1/api/health": {
       "get": {
-        "tags": [
-          "Health"
-        ],
+        "tags": ["Health"],
         "summary": "Health check",
         "description": "Retorna o status de funcionamento da API e o ambiente atual.",
         "responses": {
           "200": {
-            "description": "API em funcionamento",
+            "description": "API em funcionamento.",
             "content": {
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiResponseHealth"
-                }
+                "schema": { "$ref": "#/components/schemas/ApiResponseHealth" }
               }
             },
             "headers": {
-              "x-request-id": {
-                "$ref": "#/components/headers/RequestIdHeader"
-              },
-              "x-actor": {
-                "$ref": "#/components/headers/ActorHeader"
-              }
+              "x-request-id": { "$ref": "#/components/headers/RequestIdHeader" },
+              "x-actor": { "$ref": "#/components/headers/ActorHeader" }
             }
           }
         }
@@ -47,27 +39,36 @@
     },
     "/v1/api/healthcheck": {
       "get": {
-        "tags": [
-          "Health"
-        ],
+        "tags": ["Health"],
         "summary": "Health check (alias)",
         "description": "Alias de health check para compatibilidade.",
         "responses": {
           "200": {
-            "description": "API em funcionamento",
+            "description": "API em funcionamento.",
             "content": {
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiResponseHealth"
-                }
+                "schema": { "$ref": "#/components/schemas/ApiResponseHealth" }
               }
             },
             "headers": {
-              "x-request-id": {
-                "$ref": "#/components/headers/RequestIdHeader"
-              },
-              "x-actor": {
-                "$ref": "#/components/headers/ActorHeader"
+              "x-request-id": { "$ref": "#/components/headers/RequestIdHeader" },
+              "x-actor": { "$ref": "#/components/headers/ActorHeader" }
+            }
+          }
+        }
+      }
+    },
+    "/v1/openapi.json": {
+      "get": {
+        "tags": ["Health"],
+        "summary": "OpenAPI spec",
+        "description": "Retorna a especificacao OpenAPI deste servico.",
+        "responses": {
+          "200": {
+            "description": "Especificacao OpenAPI retornada com sucesso.",
+            "content": {
+              "application/json": {
+                "schema": { "type": "object" }
               }
             }
           }
@@ -76,9 +77,7 @@
     },
     "/v1/api/devices/{deviceId}/turn-on": {
       "post": {
-        "tags": [
-          "Dispositivos"
-        ],
+        "tags": ["Dispositivos"],
         "summary": "Ligar dispositivo",
         "description": "Aciona energizacao de um dispositivo Tuya.",
         "parameters": [
@@ -86,10 +85,8 @@
             "name": "deviceId",
             "in": "path",
             "required": true,
-            "schema": {
-              "type": "string"
-            },
-            "description": "Identificador do dispositivo Tuya."
+            "description": "Identificador do dispositivo Tuya.",
+            "schema": { "type": "string" }
           }
         ],
         "responses": {
@@ -97,53 +94,27 @@
             "description": "Comando executado com sucesso.",
             "content": {
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiResponseCommand"
-                }
+                "schema": { "$ref": "#/components/schemas/ApiResponseCommand" }
               }
             },
             "headers": {
-              "x-request-id": {
-                "$ref": "#/components/headers/RequestIdHeader"
-              },
-              "x-actor": {
-                "$ref": "#/components/headers/ActorHeader"
-              }
+              "x-request-id": { "$ref": "#/components/headers/RequestIdHeader" },
+              "x-actor": { "$ref": "#/components/headers/ActorHeader" }
             }
           },
           "400": {
-            "description": "Erro ao processar requisicao.",
+            "description": "deviceId ausente ou invalido.",
             "content": {
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiErrorResponse"
-                }
-              }
-            },
-            "headers": {
-              "x-request-id": {
-                "$ref": "#/components/headers/RequestIdHeader"
-              },
-              "x-actor": {
-                "$ref": "#/components/headers/ActorHeader"
+                "schema": { "$ref": "#/components/schemas/ApiResponseBase" }
               }
             }
           },
           "500": {
-            "description": "Erro ao processar requisicao.",
+            "description": "Erro interno ao acionar dispositivo.",
             "content": {
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiErrorResponse"
-                }
-              }
-            },
-            "headers": {
-              "x-request-id": {
-                "$ref": "#/components/headers/RequestIdHeader"
-              },
-              "x-actor": {
-                "$ref": "#/components/headers/ActorHeader"
+                "schema": { "$ref": "#/components/schemas/ApiResponseBase" }
               }
             }
           }
@@ -152,9 +123,7 @@
     },
     "/v1/api/devices/{deviceId}/turn-off": {
       "post": {
-        "tags": [
-          "Dispositivos"
-        ],
+        "tags": ["Dispositivos"],
         "summary": "Desligar dispositivo",
         "description": "Desliga um dispositivo Tuya.",
         "parameters": [
@@ -162,10 +131,8 @@
             "name": "deviceId",
             "in": "path",
             "required": true,
-            "schema": {
-              "type": "string"
-            },
-            "description": "Identificador do dispositivo Tuya."
+            "description": "Identificador do dispositivo Tuya.",
+            "schema": { "type": "string" }
           }
         ],
         "responses": {
@@ -173,53 +140,27 @@
             "description": "Comando executado com sucesso.",
             "content": {
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiResponseCommand"
-                }
+                "schema": { "$ref": "#/components/schemas/ApiResponseCommand" }
               }
             },
             "headers": {
-              "x-request-id": {
-                "$ref": "#/components/headers/RequestIdHeader"
-              },
-              "x-actor": {
-                "$ref": "#/components/headers/ActorHeader"
-              }
+              "x-request-id": { "$ref": "#/components/headers/RequestIdHeader" },
+              "x-actor": { "$ref": "#/components/headers/ActorHeader" }
             }
           },
           "400": {
-            "description": "Erro ao processar requisicao.",
+            "description": "deviceId ausente ou invalido.",
             "content": {
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiErrorResponse"
-                }
-              }
-            },
-            "headers": {
-              "x-request-id": {
-                "$ref": "#/components/headers/RequestIdHeader"
-              },
-              "x-actor": {
-                "$ref": "#/components/headers/ActorHeader"
+                "schema": { "$ref": "#/components/schemas/ApiResponseBase" }
               }
             }
           },
           "500": {
-            "description": "Erro ao processar requisicao.",
+            "description": "Erro interno ao desligar dispositivo.",
             "content": {
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiErrorResponse"
-                }
-              }
-            },
-            "headers": {
-              "x-request-id": {
-                "$ref": "#/components/headers/RequestIdHeader"
-              },
-              "x-actor": {
-                "$ref": "#/components/headers/ActorHeader"
+                "schema": { "$ref": "#/components/schemas/ApiResponseBase" }
               }
             }
           }
@@ -228,9 +169,7 @@
     },
     "/v1/api/devices/{deviceId}/status": {
       "get": {
-        "tags": [
-          "Dispositivos"
-        ],
+        "tags": ["Dispositivos"],
         "summary": "Consultar status do dispositivo",
         "description": "Retorna se o dispositivo esta ligado ou desligado.",
         "parameters": [
@@ -238,10 +177,8 @@
             "name": "deviceId",
             "in": "path",
             "required": true,
-            "schema": {
-              "type": "string"
-            },
-            "description": "Identificador do dispositivo Tuya."
+            "description": "Identificador do dispositivo Tuya.",
+            "schema": { "type": "string" }
           }
         ],
         "responses": {
@@ -249,53 +186,27 @@
             "description": "Status retornado com sucesso.",
             "content": {
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiResponseDeviceStatus"
-                }
+                "schema": { "$ref": "#/components/schemas/ApiResponseDeviceStatus" }
               }
             },
             "headers": {
-              "x-request-id": {
-                "$ref": "#/components/headers/RequestIdHeader"
-              },
-              "x-actor": {
-                "$ref": "#/components/headers/ActorHeader"
-              }
+              "x-request-id": { "$ref": "#/components/headers/RequestIdHeader" },
+              "x-actor": { "$ref": "#/components/headers/ActorHeader" }
             }
           },
           "400": {
-            "description": "Erro ao processar requisicao.",
+            "description": "deviceId ausente ou invalido.",
             "content": {
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiErrorResponse"
-                }
-              }
-            },
-            "headers": {
-              "x-request-id": {
-                "$ref": "#/components/headers/RequestIdHeader"
-              },
-              "x-actor": {
-                "$ref": "#/components/headers/ActorHeader"
+                "schema": { "$ref": "#/components/schemas/ApiResponseBase" }
               }
             }
           },
           "500": {
-            "description": "Erro ao processar requisicao.",
+            "description": "Erro interno ao consultar status.",
             "content": {
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiErrorResponse"
-                }
-              }
-            },
-            "headers": {
-              "x-request-id": {
-                "$ref": "#/components/headers/RequestIdHeader"
-              },
-              "x-actor": {
-                "$ref": "#/components/headers/ActorHeader"
+                "schema": { "$ref": "#/components/schemas/ApiResponseBase" }
               }
             }
           }
@@ -304,9 +215,7 @@
     },
     "/v1/api/devices/{deviceId}/consumption": {
       "get": {
-        "tags": [
-          "Dispositivos"
-        ],
+        "tags": ["Dispositivos"],
         "summary": "Consultar consumo do dispositivo",
         "description": "Retorna potencia instantanea e energia acumulada do dispositivo.",
         "parameters": [
@@ -314,10 +223,8 @@
             "name": "deviceId",
             "in": "path",
             "required": true,
-            "schema": {
-              "type": "string"
-            },
-            "description": "Identificador do dispositivo Tuya."
+            "description": "Identificador do dispositivo Tuya.",
+            "schema": { "type": "string" }
           }
         ],
         "responses": {
@@ -325,53 +232,27 @@
             "description": "Consumo retornado com sucesso.",
             "content": {
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiResponseDeviceConsumption"
-                }
+                "schema": { "$ref": "#/components/schemas/ApiResponseDeviceConsumption" }
               }
             },
             "headers": {
-              "x-request-id": {
-                "$ref": "#/components/headers/RequestIdHeader"
-              },
-              "x-actor": {
-                "$ref": "#/components/headers/ActorHeader"
-              }
+              "x-request-id": { "$ref": "#/components/headers/RequestIdHeader" },
+              "x-actor": { "$ref": "#/components/headers/ActorHeader" }
             }
           },
           "400": {
-            "description": "Erro ao processar requisicao.",
+            "description": "deviceId ausente ou invalido.",
             "content": {
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiErrorResponse"
-                }
-              }
-            },
-            "headers": {
-              "x-request-id": {
-                "$ref": "#/components/headers/RequestIdHeader"
-              },
-              "x-actor": {
-                "$ref": "#/components/headers/ActorHeader"
+                "schema": { "$ref": "#/components/schemas/ApiResponseBase" }
               }
             }
           },
           "500": {
-            "description": "Erro ao processar requisicao.",
+            "description": "Erro interno ao consultar consumo.",
             "content": {
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiErrorResponse"
-                }
-              }
-            },
-            "headers": {
-              "x-request-id": {
-                "$ref": "#/components/headers/RequestIdHeader"
-              },
-              "x-actor": {
-                "$ref": "#/components/headers/ActorHeader"
+                "schema": { "$ref": "#/components/schemas/ApiResponseBase" }
               }
             }
           }
@@ -386,6 +267,25 @@
   ],
   "components": {
     "schemas": {
+      "ApiResponseBase": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "nullable": true
+          },
+          "message": {
+            "type": "string",
+            "nullable": true,
+            "example": null
+          },
+          "errors": {
+            "type": "object",
+            "nullable": true,
+            "additionalProperties": true,
+            "example": null
+          }
+        }
+      },
       "HealthData": {
         "type": "object",
         "properties": {
@@ -400,129 +300,72 @@
         }
       },
       "ApiResponseHealth": {
-        "type": "object",
-        "properties": {
-          "data": {
-            "$ref": "#/components/schemas/HealthData"
-          },
-          "message": {
-            "type": "string",
-            "nullable": true,
-            "example": null
-          },
-          "errors": {
-            "type": "string",
-            "nullable": true,
-            "example": null
-          }
-        }
-      },
-      "ApiErrorResponse": {
-        "type": "object",
-        "properties": {
-          "data": {
-            "nullable": true,
-            "example": null
-          },
-          "message": {
-            "type": "string",
-            "example": "Erro ao processar requisicao."
-          },
-          "errors": {
+        "allOf": [
+          { "$ref": "#/components/schemas/ApiResponseBase" },
+          {
             "type": "object",
-            "nullable": true,
-            "additionalProperties": true
+            "properties": {
+              "data": { "$ref": "#/components/schemas/HealthData" }
+            }
           }
-        }
+        ]
       },
       "DeviceCommand": {
         "type": "object",
         "properties": {
-          "deviceId": {
-            "type": "string"
-          },
+          "deviceId": { "type": "string" },
           "command": {
             "type": "string",
-            "enum": [
-              "TURN_ON",
-              "TURN_OFF"
-            ]
+            "enum": ["TURN_ON", "TURN_OFF"]
           },
-          "mocked": {
-            "type": "boolean"
-          }
+          "mocked": { "type": "boolean" }
         }
       },
       "DeviceStatus": {
         "type": "object",
         "properties": {
-          "deviceId": {
-            "type": "string"
-          },
-          "isOn": {
-            "type": "boolean"
-          }
+          "deviceId": { "type": "string" },
+          "isOn": { "type": "boolean" }
         }
       },
       "DeviceConsumption": {
         "type": "object",
         "properties": {
-          "deviceId": {
-            "type": "string"
-          },
-          "powerWatts": {
-            "type": "number"
-          },
-          "energyKwh": {
-            "type": "number"
-          },
-          "sampledAt": {
-            "type": "string",
-            "format": "date-time"
-          }
+          "deviceId": { "type": "string" },
+          "powerWatts": { "type": "number" },
+          "energyKwh": { "type": "number" },
+          "sampledAt": { "type": "string", "format": "date-time" }
         }
       },
       "ApiResponseCommand": {
         "allOf": [
-          {
-            "$ref": "#/components/schemas/ApiResponseHealth"
-          },
+          { "$ref": "#/components/schemas/ApiResponseBase" },
           {
             "type": "object",
             "properties": {
-              "data": {
-                "$ref": "#/components/schemas/DeviceCommand"
-              }
+              "data": { "$ref": "#/components/schemas/DeviceCommand" }
             }
           }
         ]
       },
       "ApiResponseDeviceStatus": {
         "allOf": [
-          {
-            "$ref": "#/components/schemas/ApiResponseHealth"
-          },
+          { "$ref": "#/components/schemas/ApiResponseBase" },
           {
             "type": "object",
             "properties": {
-              "data": {
-                "$ref": "#/components/schemas/DeviceStatus"
-              }
+              "data": { "$ref": "#/components/schemas/DeviceStatus" }
             }
           }
         ]
       },
       "ApiResponseDeviceConsumption": {
         "allOf": [
-          {
-            "$ref": "#/components/schemas/ApiResponseHealth"
-          },
+          { "$ref": "#/components/schemas/ApiResponseBase" },
           {
             "type": "object",
             "properties": {
-              "data": {
-                "$ref": "#/components/schemas/DeviceConsumption"
-              }
+              "data": { "$ref": "#/components/schemas/DeviceConsumption" }
             }
           }
         ]
